@@ -11,11 +11,16 @@ public class DarkHole : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
+        if (GetComponent<Gravity>()) {
+            
+        }
 	}
     void OnTriggerEnter(Collider c) {
         if(c.gameObject.tag == "Player") { 
             GameManager.loose();
+            if (GameObject.Find("planet")) {
+                GameObject.Find("planet").SetActive(false);
+            }
         }
     }
 }

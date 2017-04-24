@@ -16,6 +16,12 @@ public class LevelEnd : MonoBehaviour {
     void OnTriggerEnter(Collider c) {
         if(c.gameObject.tag == "Player") {
             GameManager.nextLevel();
+            if (GetComponent<AudioSource>()) {
+                GetComponent<AudioSource>().Play();
+            }
+            if (GameObject.Find("planet")) {
+                GameObject.Find("planet").SetActive(false);
+            }
         }
     }
 }

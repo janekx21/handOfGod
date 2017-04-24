@@ -8,8 +8,10 @@ public class Planet : MonoBehaviour {
     public float mult;
     private Vector3 fo;
     private bool dead = false;
-	// Use this for initialization
-	void Start () {
+    public AudioClip hit;
+    public AudioClip snip;
+    // Use this for initialization
+    void Start () {
 		
 	}
 	
@@ -26,7 +28,7 @@ public class Planet : MonoBehaviour {
             if(mPos.magnitude > 4) {
                 mPos = mPos.normalized* 4;
             }
-            lr.SetPosition(1, new Vector3(0,mPos.y,-mPos.x));
+            lr.SetPosition(1, new Vector3(0,mPos.y*4,-mPos.x*4));
             fo = new Vector3(0, mPos.y, -mPos.x);
         }
         else {
@@ -40,10 +42,12 @@ public class Planet : MonoBehaviour {
     public void Snip() {
         hasBeenSnipped = true;
         GetComponent<Rigidbody>().AddForce(fo * force);
+        GetComponent<AudioSource>().PlayOneShot(snip);
     }
 
     void OnCollisionEnter(Collision c) {
         GameObject.Find("cam").GetComponent<CamFollow>().Shake();
+        GetComponent<AudioSource>().PlayOneShot(hit);
     }
 
     public void die() {
